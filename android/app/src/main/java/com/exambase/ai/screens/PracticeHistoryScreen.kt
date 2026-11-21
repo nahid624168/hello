@@ -45,7 +45,7 @@ fun PracticeHistoryScreen(
             s.error != null && s.items.isEmpty() -> ErrorView(retryLabel = stringResource(R.string.retry), message = s.error!!, onRetry = vm::reload)
             s.items.isEmpty() -> EmptyView(
                 title = stringResource(R.string.practice_history_empty_title),
-                body = stringResource(R.string.practice_history_empty_body),
+                message = stringResource(R.string.practice_history_empty_body),
             )
             else -> LazyColumn(
                 contentPadding = PaddingValues(Spacing.md),

@@ -104,7 +104,7 @@ fun FlashcardListScreen(
                 s.error != null -> ErrorView(retryLabel = stringResource(R.string.retry), message = s.error!!.message ?: "Error", onRetry = vm::reload)
                 s.list.items.isEmpty() -> EmptyView(
                     title = stringResource(R.string.flashcards_empty_title),
-                    body = stringResource(R.string.flashcards_empty_body),
+                    message = stringResource(R.string.flashcards_empty_body),
                 )
                 else -> LazyColumn(
                     contentPadding = PaddingValues(Spacing.md),

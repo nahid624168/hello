@@ -46,7 +46,7 @@ import com.exambase.core.network.QuizSetListItem
 import com.exambase.core.network.QuizSort
 import com.exambase.core.network.QuizStatus
 
-/** Quiz lis/** Quiz list opened from Home (My Quiz Sets). Each quiz set is its own card; sets are never merged with flashcard sets. */
+/** Quiz list opened from Home (My Quiz Sets). Each quiz set is its own card; sets are never merged with flashcard sets. */
 @Composable
 fun QuizListScreen(
     onBack: () -> Unit,
@@ -136,7 +136,7 @@ fun QuizListScreen(
                 s.error != null -> ErrorView(retryLabel = stringResource(R.string.retry), message = s.error!!.message ?: "Something went wrong", onRetry = vm::reload)
                 s.list.items.isEmpty() -> EmptyView(
                     title = stringResource(R.string.quizzes_empty_title),
-                    body = stringResource(R.string.quizzes_empty_body),
+                    message = stringResource(R.string.quizzes_empty_body),
                 )
                 else -> LazyColumn(
                     contentPadding = PaddingValues(Spacing.md),
@@ -228,7 +228,7 @@ private fun QuizSetCard(
     }
 }
 
-ions: what the quiz is, its rules, why it cannot be started (if so), and the recent attempts. */
+/** Quiz detail: what the quiz is, its rules, why it cannot be started (if so), and the recent attempts. */
 @Composable
 fun QuizDetailScreen(id: String, onBack: () -> Unit, onSignedOut: () -> Unit, onStart: (String) -> Unit, onHistory: (String) -> Unit, onOpenResult: (String) -> Unit, onEdit: (String) -> Unit = {}, onManageQuestions: (String) -> Unit = {}) {
     val vm = appViewModel { QuizDetailViewModel(id, it.quizRepository) }
@@ -247,7 +247,7 @@ private fun QuizDetailBody(data: QuizDetailData, onStart: (String) -> Unit, onHi
         Modifier.verticalScroll(rememberScrollState()).padding(Spacing.md),
         verticalArrangement = Arrangement.spacedBy(Spacing.md),
     ) {
-        statusLabel(set.status)?.let { Text(it, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary) }
+        quizStatusBadge(set.status)?.let { Text(it, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary) }
         Text(set.title, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
         set.description?.takeIf { it.isNotBlank() }?.let { Text(it, style = MaterialTheme.typography.bodyLarge) }
 
@@ -351,4 +351,12 @@ private fun AttemptRow(attempt: QuizAttemptSummary, onClick: () -> Unit) {
             Text(listOfNotNull(status, passed).joinToString("  ·  "), style = MaterialTheme.typography.titleSmall)
         }
     }
+}
+
+/** Badge text for the quiz detail header; a normal private quiz needs no badge. */
+@Composable
+private fun quizStatusBadge(status: String): String? = when (status) {
+    QuizStatus.DRAFT -> stringResource(R.string.quiz_status_draft)
+    QuizStatus.ARCHIVED -> stringResource(R.string.quiz_status_archived)
+    else -> null
 }

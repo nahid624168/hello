@@ -150,7 +150,7 @@ fun NotesListScreen(
                 s.error != null && s.list.items.isEmpty() -> ErrorView(retryLabel = stringResource(R.string.retry), message = s.error!!, onRetry = vm::reload)
                 s.list.items.isEmpty() -> EmptyView(
                     title = stringResource(R.string.notes_empty_title),
-                    body = stringResource(R.string.notes_empty_body),
+                    message = stringResource(R.string.notes_empty_body),
                 )
                 else -> LazyColumn(
                     contentPadding = PaddingValues(Spacing.md),
@@ -228,8 +228,9 @@ fun NoteEditorScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
+                    val saveText = saveLabel(s.saveStatus)
                     Text(
-                        saveLabel(s.saveStatus),
+                        saveText,
                         style = MaterialTheme.typography.labelMedium,
                         color = when (s.saveStatus) {
                             SaveStatus.Error, SaveStatus.Conflict -> MaterialTheme.colorScheme.error
@@ -237,7 +238,7 @@ fun NoteEditorScreen(
                             else -> MaterialTheme.colorScheme.onSurfaceVariant
                         },
                         modifier = Modifier.semantics {
-                            contentDescription = saveLabel(s.saveStatus)
+                            contentDescription = saveText
                         },
                     )
                     Text(

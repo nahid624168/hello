@@ -53,8 +53,8 @@ fun SessionsScreen(onBack: () -> Unit) {
                 }
                 state.sessions.isEmpty() -> Text(stringResource(R.string.sessions_empty))
                 else -> state.sessions.forEach { session ->
-                    Card(Modifier = Modifier.fillMaxWidth()) {
-                        Column(Modifier = Modifier.padding(Spacing.md), verticalArrangement = Arrangement.spacedBy(Spacing.xs)) {
+                    Card(modifier = Modifier.fillMaxWidth()) {
+                        Column(modifier = Modifier.padding(Spacing.md), verticalArrangement = Arrangement.spacedBy(Spacing.xs)) {
                             Text(
                                 session.deviceName?.ifBlank { null } ?: stringResource(R.string.sessions_unknown_device),
                                 style = MaterialTheme.typography.titleMedium,

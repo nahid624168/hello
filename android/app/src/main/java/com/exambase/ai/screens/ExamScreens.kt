@@ -54,7 +54,7 @@ fun ExamListScreen(onBack: () -> Unit, onOpenExam: (String) -> Unit, onSignedOut
                 }
                 state.list.items.isEmpty() -> Text(stringResource(R.string.exams_empty))
                 else -> state.list.items.forEach { e ->
-                    Card(Modifier = Modifier.fillMaxWidth().clickable { onOpenExam(e.id) }) {
+                    Card(modifier = Modifier.fillMaxWidth().clickable { onOpenExam(e.id) }) {
                         Column(Modifier.padding(Spacing.md), verticalArrangement = Arrangement.spacedBy(Spacing.xs)) {
                             Text(e.title, style = MaterialTheme.typography.titleMedium)
                             Text(stringResource(R.string.exams_status_line, e.status, e.attemptsUsed, e.maxAttempts))

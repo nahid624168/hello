@@ -13,6 +13,11 @@ object AiTasks {
     const val REVISION_NOTES = "revision_notes"
     const val TRANSLATE = "translate"
     const val SIMPLIFY = "simplify"
+    const val MAKE_FLASHCARDS = "make_flashcards"
+    const val MAKE_QUESTIONS = "make_questions"
+    const val TUTOR_HINT = "tutor_hint"
+    const val TUTOR_STEPS = "tutor_steps"
+    const val CHAT = "chat"
 
     /** Order shown on screen. */
     val textTasks = listOf(SUMMARIZE, EXPLAIN, OUTLINE, REVISION_NOTES, SIMPLIFY, TRANSLATE)
