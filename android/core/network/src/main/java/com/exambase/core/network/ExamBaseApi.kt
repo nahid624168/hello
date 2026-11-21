@@ -567,6 +567,17 @@ class HttpExamBaseApi(
     override suspend fun aiGeneratedQuiz(accessToken: String, id: String) = send<AiGeneratedQuizDetailDto>(HttpMethod.Get, "/ai/quiz-sets/${id.encodeURLParameter()}", null, accessToken)
     override suspend fun deleteAiGeneratedQuiz(accessToken: String, id: String) = emptyDelete("/ai/quiz-sets/${id.encodeURLParameter()}", accessToken)
 
+    override suspend fun analyticsOverview(accessToken: String) =
+        send<AnalyticsOverview>(HttpMethod.Get, "/analytics/overview", null, accessToken)
+    override suspend fun analyticsTrends(accessToken: String, days: Int) =
+        send<TrendsDto>(HttpMethod.Get, "/analytics/trends" + query("days" to days.toString()), null, accessToken)
+    override suspend fun analyticsSubjects(accessToken: String) =
+        send<List<SubjectPerformanceDto>>(HttpMethod.Get, "/analytics/subjects", null, accessToken)
+    override suspend fun achievements(accessToken: String) =
+        send<AchievementsDto>(HttpMethod.Get, "/analytics/achievements", null, accessToken)
+    override suspend fun updateDailyGoal(accessToken: String, req: UpdateDailyGoalRequest) =
+        send<AnalyticsOverview>(HttpMethod.Patch, "/analytics/daily-goal", json.encodeToString(req), accessToken)
+
     override suspend fun searchRecent(accessToken: String) =
         send<RecentSearchesResponse>(HttpMethod.Get, "/search/recent", null, accessToken)
 
